@@ -15,7 +15,7 @@
                 <div class="panel-body">
                     <div class="list-group">
                     {% for album in albumList %}
-                        <a href="#" class="list-group-item"><span class="badge">14</span>{{ album }}</a>
+                        <a href="{{ url('album.detail', { a: album}) }}" class="list-group-item"><span class="badge">14</span>{{ album }}</a>
                     {% endfor %}
                     </div>
                 </div>
