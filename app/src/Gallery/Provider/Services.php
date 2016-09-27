@@ -12,9 +12,18 @@
 
 namespace Gallery\Provider;
 
+use Gallery\Service\AlbumFactory;
+use Gallery\Service\ShortUniqueIdService;
 use Pimple\Container;
 
 class Services extends Base {
     public function register(Container $app) {
+        $app['service.ShortId'] = function($app) {
+            return new ShortUniqueIdService();
+        };
+
+        $app['factory.Album'] = function($app) {
+            return new AlbumFactory($app['gallery.config']['source'], $app['service.ShortId']);
+        };
     }
 }

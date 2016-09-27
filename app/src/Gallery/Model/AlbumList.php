@@ -13,14 +13,18 @@
 namespace Gallery\Model;
 
 
+use Gallery\Service\AlbumFactory;
+
 class AlbumList
 {
     public $albumList;
     private $sourceDirectory;
+    private $albumFactory;
 
-    public function __construct(string $sourceDirectory)
+    public function __construct(string $sourceDirectory, AlbumFactory $albumFactory)
     {
         $this->sourceDirectory = $sourceDirectory;
+        $this->albumFactory = $albumFactory;
         $this->loadDirectoryContent();
     }
 
@@ -40,7 +44,7 @@ class AlbumList
         $precedingYear = NULL;
         foreach($this->albumList as $album)
         {
-            $currentAlbum = new Album($this->sourceDirectory);
+            $currentAlbum = $this->albumFactory->getAlbum();
             $currentAlbum->loadDirectoryContent($album);
 
             $currentYear = substr($album, 0, 4);

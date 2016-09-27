@@ -19,11 +19,11 @@ use Pimple\Container;
 class Models extends Base {
     public function register(Container $app) {
         $app['model.AlbumList'] = function($app) {
-            return new AlbumList($app['gallery.config']['source']);
+            return new AlbumList($app['gallery.config']['source'], $app['factory.Album']);
         };
 
         $app['model.Album'] = function($app) {
-            return new Album($app['gallery.config']['source']);
+            return new Album($app['gallery.config']['source'], $app['service.ShortId']);
         };
     }
 }

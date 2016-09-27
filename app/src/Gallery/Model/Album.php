@@ -13,15 +13,19 @@
 namespace Gallery\Model;
 
 
+use Gallery\Service\ShortUniqueIdService;
+
 class Album
 {
     public $albumImages;
     private $sourceDirectory;
+    private $shortId;
     public $albumDirectory;
 
-    public function __construct(string $sourceDirectory)
+    public function __construct(string $sourceDirectory, ShortUniqueIdService $shortId)
     {
         $this->sourceDirectory = $sourceDirectory;
+        $this->shortId = $shortId;
     }
 
     private function getFullDirectory()
@@ -43,6 +47,7 @@ class Album
     public function toArray()
     {
         return array('name' => utf8_encode($this->albumDirectory),
+                     'id' => $this->shortId->generate($this->albumDirectory),
                      'count' => count($this->albumImages),
                      'images' => $this->albumImages);
     }
