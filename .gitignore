@@ -1,0 +1,8 @@
+ncops.sublime-*
+vendor/**
+coverage/**
+cache/**
+composer.phar
+clover.xml
+phpunit.phar
+web/readium/**

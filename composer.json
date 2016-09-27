@@ -1,0 +1,26 @@
+{
+    "name": "seblucas/saf-photo-gallery",
+    "description": "A Simple (as f...) photo gallery, easy to install and use",
+    "type": "project",
+    "license": "GPL-2.0",
+    "authors": [
+        {
+            "name": "Sébastien Lucas",
+            "email": "sebastien@slucas.fr"
+        }
+    ],
+    "require": {
+        "silex/silex": "~2.0",
+        "twig/twig": "~1.0",
+        "monolog/monolog": "^1.17",
+        "symfony/twig-bridge": "^3.1",
+        "symfony/asset": "^3.1"
+    },
+    "autoload": {
+        "psr-0": {"Gallery": "app/src"}
+    },
+    "require-dev": {
+        "symfony/browser-kit": "^3.1",
+        "symfony/css-selector": "^3.1"
+    }
+}
