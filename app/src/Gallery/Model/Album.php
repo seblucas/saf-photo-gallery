@@ -42,7 +42,7 @@ class Album
 
     public function toArray()
     {
-        return array('name' => $this->albumDirectory,
+        return array('name' => utf8_encode($this->albumDirectory),
                      'count' => count($this->albumImages),
                      'images' => $this->albumImages);
     }
