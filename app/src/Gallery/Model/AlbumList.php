@@ -13,8 +13,6 @@
 namespace Gallery\Model;
 
 
-use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
-
 class AlbumList
 {
     public $albumList;
@@ -30,7 +28,7 @@ class AlbumList
     {
         if (!is_dir($this->sourceDirectory))
         {
-            throw new FileNotFoundException('Source directory not found');
+            throw new \Exception('Source directory not found');
         }
 
         $this->albumList = array_diff(scandir ($this->sourceDirectory, SCANDIR_SORT_DESCENDING), array('.', '..', '@eaDir', '.sync'));

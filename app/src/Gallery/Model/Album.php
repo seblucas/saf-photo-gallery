@@ -34,7 +34,7 @@ class Album
         $this->albumDirectory = $albumDirectory;
         if (!is_dir($this->getFullDirectory()))
         {
-            throw new FileNotFoundException('Source directory not found');
+            throw new \Exception('Source directory not found');
         }
 
         $this->albumImages = array_diff(scandir ($this->getFullDirectory(), SCANDIR_SORT_DESCENDING), array('.', '..'));
