@@ -36,18 +36,21 @@ class AlbumList
         $this->albumList = array_diff(scandir ($this->sourceDirectory, SCANDIR_SORT_DESCENDING), array('.', '..', '@eaDir', '.sync'));
     }
 
-    public function getAlbumPerYear()
+    public function toArray()
     {
         $albumsPerYear = array();
         $precedingYear = NULL;
         foreach($this->albumList as $album)
         {
+            $currentAlbum = new Album($this->sourceDirectory);
+            $currentAlbum->loadDirectoryContent($album);
+
             $currentYear = substr($album, 0, 4);
             if (!array_key_exists($currentYear, $albumsPerYear))
             {
                 $albumsPerYear[$currentYear] = [];
             }
-            $albumsPerYear[$currentYear][] = $album;
+            $albumsPerYear[$currentYear][] = $currentAlbum->toArray();
         }
         return $albumsPerYear;
     }

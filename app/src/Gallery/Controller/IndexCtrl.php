@@ -32,7 +32,7 @@ class IndexCtrl
 
     public function getAllAlbums()
     {
-        $albumPerYear = $this->albumList->getAlbumPerYear();
+        $albumPerYear = $this->albumList->toArray();
         return new Response($this->twig->render('index.html.twig', array('albumsPerYear' => $albumPerYear)),
             200);
     }
