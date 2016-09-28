@@ -31,7 +31,7 @@ class Album
         $this->workDirectory = $workDirectory;
     }
 
-    private function getFullDirectory()
+    public function getFullDirectory()
     {
         return $this->sourceDirectory . $this->albumDirectory;
     }

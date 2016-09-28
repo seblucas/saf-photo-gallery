@@ -14,6 +14,7 @@ namespace Gallery\Provider;
 
 use Gallery\Controller\AlbumCtrl;
 use Gallery\Controller\IndexCtrl;
+use Gallery\Controller\ThumbnailCtrl;
 use Pimple\Container;
 
 class Controllers extends Base {
@@ -23,6 +24,10 @@ class Controllers extends Base {
         };
         $app['controller.Album'] = function($app) {
             return new AlbumCtrl($app['twig'], $app['model.Album']);
+        };
+
+        $app['controller.Thumbnail'] = function($app) {
+            return new ThumbnailCtrl($app['model.Album'], $app['service.Thumbnail']);
         };
     }
 }

@@ -70,6 +70,8 @@ class Application extends SilexApplication
         $this->get('/', 'controller.AlbumList:getAllAlbums');
         $this->get('/album/', 'controller.Album:getOneAlbum')
             ->bind('album.detail');
+        $this->get('/album/{albumId}/thumbnail', 'controller.Thumbnail:getOneThumbnail')
+            ->bind('thumbnail');
     }
 
 }

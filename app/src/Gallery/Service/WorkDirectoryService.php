@@ -49,4 +49,14 @@ class WorkDirectoryService
         return file_get_contents($albumDirectory . $this->REAL_DIRECTORY_NAME);
     }
 
+    public function getThumbnailPath($albumId, $imageName, $size)
+    {
+        $directory = $this->workDirectory . $albumId . '/' . $size;
+        if (!is_dir($directory)) {
+            mkdir($directory);
+        }
+
+        return $directory . '/' . $imageName;
+    }
+
 }

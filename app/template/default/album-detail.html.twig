@@ -1,5 +1,13 @@
 {% extends "base.html.twig" %}
 
 {% block content %}
-    <span class="badge">{{ album.count }}</span>{{ album.name }}
+    <h1>{{ album.name }}</h1>
+    <div class="row">
+        {% for image in album.images %}
+        <div class="col-xs-12 col-sm-6 col-md-4">
+
+            <a href="{{ url('thumbnail', { albumId: album.id, i: image, s: 'small'}) }}">{{ image }}</a>
+        </div>
+        {% endfor %}
+    </div>
 {% endblock %}

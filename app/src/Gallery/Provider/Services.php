@@ -14,6 +14,7 @@ namespace Gallery\Provider;
 
 use Gallery\Service\AlbumFactory;
 use Gallery\Service\ShortUniqueIdService;
+use Gallery\Service\ThumbnailService;
 use Gallery\Service\WorkDirectoryService;
 use Pimple\Container;
 
@@ -29,6 +30,10 @@ class Services extends Base {
 
         $app['service.WorkDirectory'] = function($app) {
             return new WorkDirectoryService($app['gallery.config']['source'], $app['gallery.config']['work'], $app['service.ShortId']);
+        };
+
+        $app['service.Thumbnail'] = function($app) {
+            return new ThumbnailService($app['gallery.config']['source'], $app['service.WorkDirectory']);
         };
     }
 }
