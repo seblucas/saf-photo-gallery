@@ -14,6 +14,7 @@ namespace Gallery\Provider;
 
 use Gallery\Service\AlbumFactory;
 use Gallery\Service\ShortUniqueIdService;
+use Gallery\Service\WorkDirectoryService;
 use Pimple\Container;
 
 class Services extends Base {
@@ -23,7 +24,11 @@ class Services extends Base {
         };
 
         $app['factory.Album'] = function($app) {
-            return new AlbumFactory($app['gallery.config']['source'], $app['service.ShortId']);
+            return new AlbumFactory($app['gallery.config']['source'], $app['service.WorkDirectory']);
+        };
+
+        $app['service.WorkDirectory'] = function($app) {
+            return new WorkDirectoryService($app['gallery.config']['source'], $app['gallery.config']['work'], $app['service.ShortId']);
         };
     }
 }

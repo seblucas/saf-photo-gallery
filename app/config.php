@@ -22,6 +22,6 @@ return array(
         'version' => '0.0.1',
         // Please always add a trailing slash
         'source' => 'c:/Partage/Photo/',
-        'app' => 'c:/Partage/bfdir/'
+        'work' => 'c:/Partage/bfdir/'
     )
 );

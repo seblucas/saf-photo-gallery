@@ -33,8 +33,8 @@ class AlbumCtrl
 
     public function getOneAlbum(Request $request)
     {
-        $albumName = utf8_decode($request->get('a'));
-        $this->album->loadDirectoryContent($albumName);
+        $albumName = $request->get('a');
+        $this->album->loadFromId($albumName);
         return new Response($this->twig->render('album-detail.html.twig', array('album' => $this->album->toArray())),
             200);
     }

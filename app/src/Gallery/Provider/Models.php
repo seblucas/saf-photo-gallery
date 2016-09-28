@@ -23,7 +23,7 @@ class Models extends Base {
         };
 
         $app['model.Album'] = function($app) {
-            return new Album($app['gallery.config']['source'], $app['service.ShortId']);
+            return new Album($app['gallery.config']['source'], $app['service.WorkDirectory']);
         };
     }
 }

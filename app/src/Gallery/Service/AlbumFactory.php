@@ -18,17 +18,17 @@ use Gallery\Model\Album;
 class AlbumFactory
 {
     private $sourceDirectory;
-    private $shortId;
+    private $workDirectory;
 
-    public function __construct(string $sourceDirectory, ShortUniqueIdService $shortId)
+    public function __construct(string $sourceDirectory, WorkDirectoryService $workDirectory)
     {
         $this->sourceDirectory = $sourceDirectory;
-        $this->shortId = $shortId;
+        $this->workDirectory = $workDirectory;
     }
 
     public function getAlbum()
     {
-        return new Album($this->sourceDirectory, $this->shortId);
+        return new Album($this->sourceDirectory, $this->workDirectory);
     }
 
 }

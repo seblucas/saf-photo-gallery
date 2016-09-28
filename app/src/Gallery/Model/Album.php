@@ -14,18 +14,21 @@ namespace Gallery\Model;
 
 
 use Gallery\Service\ShortUniqueIdService;
+use Gallery\Service\WorkDirectoryService;
 
 class Album
 {
     public $albumImages;
-    private $sourceDirectory;
-    private $shortId;
     public $albumDirectory;
 
-    public function __construct(string $sourceDirectory, ShortUniqueIdService $shortId)
+    private $sourceDirectory;
+    /** @var WorkDirectoryService  */
+    private $workDirectory;
+
+    public function __construct(string $sourceDirectory, WorkDirectoryService $workDirectory)
     {
         $this->sourceDirectory = $sourceDirectory;
-        $this->shortId = $shortId;
+        $this->workDirectory = $workDirectory;
     }
 
     private function getFullDirectory()
@@ -44,10 +47,15 @@ class Album
         $this->albumImages = array_diff(scandir ($this->getFullDirectory(), SCANDIR_SORT_DESCENDING), array('.', '..'));
     }
 
+    public function loadFromId($id)
+    {
+        $this->loadDirectoryContent($this->workDirectory->getAlbumName($id));
+    }
+
     public function toArray()
     {
         return array('name' => utf8_encode($this->albumDirectory),
-                     'id' => $this->shortId->generate($this->albumDirectory),
+                     'id' => $this->workDirectory->getAlbumID($this->albumDirectory),
                      'count' => count($this->albumImages),
                      'images' => $this->albumImages);
     }
