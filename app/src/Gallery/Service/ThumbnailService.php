@@ -62,12 +62,6 @@ class ThumbnailService
                             $deg = 90;
                             break;
                     }
-
-                    // Rotate it!  (Do nothing for 0 degrees case!)
-
-                    if ($deg) {
-                        $src_img = imagerotate($src_img, $deg, 0);
-                    }
                 }
             }
         }
@@ -75,12 +69,10 @@ class ThumbnailService
 
         // get image size
         if ($size = getimagesize ($source)) {
+            $w = $size[0];
+            $h = $size[1];
             if ($deg == 90 || $deg == 270) {
-                $h = $size[0];
-                $w = $size[1];
-            } else {
-                $w = $size[0];
-                $h = $size[1];
+                $width = $height;
             }
             //set new size
             if (!is_null ($width)) {
@@ -102,6 +94,9 @@ class ThumbnailService
 
         $dst_img = imagecreatetruecolor($nw,$nh);
         imagecopyresampled($dst_img, $src_img, 0, 0, 0, 0, $nw, $nh, $w, $h);//resizing the image
+        if ($deg) {
+            $dst_img = imagerotate($dst_img, $deg, 0);
+        }
         imagejpeg($dst_img,$outputFile,80);
         imagedestroy($src_img);
         imagedestroy($dst_img);
