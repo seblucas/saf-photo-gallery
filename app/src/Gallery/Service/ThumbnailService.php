@@ -37,34 +37,7 @@ class ThumbnailService
 
 
         $deg = 0;
-
-        // Do we have the ability to rotate?
-        if (function_exists('exif_read_data')) {
-
-            // Does the image have rotation set?
-            $exif = exif_read_data($source);
-            if($exif && isset($exif['Orientation'])) {
-                $orientation = $exif['Orientation'];
-
-                // Does it actually need rotation
-                if($orientation != 1){
-
-                    // Work out the actual rotation
-
-                    switch ($orientation) {
-                        case 3:
-                            $deg = 180;
-                            break;
-                        case 6:
-                            $deg = 270;
-                            break;
-                        case 8:
-                            $deg = 90;
-                            break;
-                    }
-                }
-            }
-        }
+        $deg = $this->detectRotation($source);
 
 
         // get image size
@@ -114,5 +87,42 @@ class ThumbnailService
             $this->generateThumbnail($realImagePath, null, 328, $thumbnailPath);
         }
         return $thumbnailPath;
+    }
+
+    /**
+     * @param $source
+     * @return int
+     */
+    private function detectRotation($source):int
+    {
+        $deg = 0;
+        // Do we have the ability to rotate?
+        if (function_exists('exif_read_data')) {
+
+            // Does the image have rotation set?
+            $exif = exif_read_data($source);
+            if ($exif && isset($exif['Orientation'])) {
+                $orientation = $exif['Orientation'];
+
+                // Does it actually need rotation
+                if ($orientation != 1) {
+
+                    // Work out the actual rotation
+
+                    switch ($orientation) {
+                        case 3:
+                            $deg = 180;
+                            break;
+                        case 6:
+                            $deg = 270;
+                            break;
+                        case 8:
+                            $deg = 90;
+                            break;
+                    }
+                }
+            }
+        }
+        return $deg;
     }
 }
