@@ -17,6 +17,18 @@
     <script src="/gallery/js/bootstrap.min.js"></script>
     <script src="/gallery/js/masonry.pkgd.min.js"></script>
     <script src="/gallery/js/imagesloaded.pkgd.min.js"></script>
+
+    <style media="screen" type="text/css">
+        .row.no-gutters {
+            margin-right: 0;
+            margin-left: 0;
+        }
+        .row.no-gutters > [class^="col-"],
+        .row.no-gutters > [class*=" col-"] {
+            padding-right: 0;
+            padding-left: 0;
+        }
+    </style>
     {% block scripts %}{% endblock %}
 </head>
 <body>
