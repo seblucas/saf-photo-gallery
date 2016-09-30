@@ -1,12 +1,29 @@
 {% extends "base.html.twig" %}
 
+{% block scripts %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var $grid = $('.grid').imagesLoaded( function() {
+                // init Masonry after all images have loaded
+                $grid.masonry({
+                    itemSelector: '.grid-item', // use a separate class for itemSelector, other than .col-
+                    columnWidth: '.grid-sizer',
+                    percentPosition: true
+                });
+            });
+        });
+    </script>
+{% endblock %}
+
 {% block content %}
     <h1>{{ album.name }}</h1>
-    <div class="row">
+    <div class="row grid">
+        <!-- 1 col grid @ xs, 2 col grid @ sm, 3 col grid @ md -->
+        <div class="grid-sizer col-xs-12 col-sm-6 col-md-4 col-lg-3"></div>
         {% for image in album.images %}
-        <div class="col-xs-12 col-sm-6 col-md-4">
-
-            <a href="{{ url('thumbnail', { albumId: album.id, i: image, s: 'small'}) }}">{{ image }}</a>
+        <div class="grid-item col-xs-12 col-sm-6 col-md-4 col-lg-3">
+            <img class="img-responsive" src="{{ url('thumbnail', { albumId: album.id, i: image, s: 'small'}) }}" />
+            <!--<a href="{{ url('thumbnail', { albumId: album.id, i: image, s: 'small'}) }}">{{ image }}</a>-->
         </div>
         {% endfor %}
     </div>
