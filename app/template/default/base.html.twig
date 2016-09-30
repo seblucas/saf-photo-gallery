@@ -6,14 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>{% block feedtitle %}SAF Photo Gallery{% endblock %}</title>
-
+<!--
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+-->
+    <link rel="stylesheet" href="/gallery/css/bootstrap.min.css">
+    <script src="/gallery/js/jquery.min.js" ></script>
+    <script src="/gallery/js/bootstrap.min.js"></script>
+    <script src="/gallery/js/masonry.pkgd.min.js"></script>
+    <script src="/gallery/js/imagesloaded.pkgd.min.js"></script>
+    {% block scripts %}{% endblock %}
 </head>
 <body>
-    <div class="container">
         <nav class="navbar navbar-inverse">
             <div class="container">
                 <div class="navbar-header">
@@ -37,7 +43,6 @@
         <div class="container-fluid">
             {% block content %}Content{% endblock %}
         </div>
-    </div>
 
 </body>
 </html>
