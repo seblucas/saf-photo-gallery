@@ -19,6 +19,7 @@ use Gallery\Service\WorkDirectoryService;
 class Album
 {
     public $albumImages;
+    public $albumImagesDetail;
     public $albumDirectory;
 
     private $sourceDirectory;
@@ -36,7 +37,7 @@ class Album
         return $this->sourceDirectory . $this->albumDirectory;
     }
 
-    public function loadDirectoryContent($albumDirectory)
+    public function loadDirectoryContent($albumDirectory, $withOrientation = true)
     {
         $this->albumDirectory = $albumDirectory;
         if (!is_dir($this->getFullDirectory()))
@@ -45,6 +46,20 @@ class Album
         }
 
         $this->albumImages = array_diff(scandir ($this->getFullDirectory(), SCANDIR_SORT_DESCENDING), array('.', '..'));
+
+        if ($withOrientation) {
+            $albumId = $this->workDirectory->getAlbumID($this->albumDirectory);
+            $this->albumImagesDetail = array();
+            foreach ($this->albumImages as $image) {
+                $thumbnailPath = $this->workDirectory->getThumbnailPath($albumId, $image, 'small');
+                $size = getimagesize ($thumbnailPath);
+                if ($size[0] > $size[1]) {
+                    $this->albumImagesDetail[] = array('name' => $image, 'orientation' => 'l'); // landscape
+                } else {
+                    $this->albumImagesDetail[] = array('name' => $image, 'orientation' => 'p'); // portrait
+                }
+            }
+        }
     }
 
     public function loadFromId($id)
@@ -57,6 +72,7 @@ class Album
         return array('name' => utf8_encode($this->albumDirectory),
                      'id' => $this->workDirectory->getAlbumID($this->albumDirectory),
                      'count' => count($this->albumImages),
-                     'images' => $this->albumImages);
+                     'images' => $this->albumImages,
+                     'imagesDetail' => $this->albumImagesDetail);
     }
 }
