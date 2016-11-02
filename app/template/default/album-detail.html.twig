@@ -11,10 +11,9 @@
 {% block content %}
     <h1>{{ album.name }}</h1>
     <div id="gallery">
-    {% for image in album.imagesDetail %}
-        <a href="{{ url('thumbnail', { albumId: album.id, i: image.name, s: 'large'}) }}"
-           data-ngthumb="{{ url('thumbnail', { albumId: album.id, i: image.name, s: 'small'}) }}"
-           data-ngdesc="Super 1" >Totoa</a>
+    {% for image in album.images %}
+        <a href="{{ url('thumbnail', { albumId: album.id, i: image, s: 'large'}) }}"
+           data-ngthumb="{{ url('thumbnail', { albumId: album.id, i: image, s: 'small'}) }}"></a>
     {% endfor %}
     </div>
 {% endblock %}
