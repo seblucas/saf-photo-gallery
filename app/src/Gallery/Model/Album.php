@@ -46,6 +46,7 @@ class Album
         }
 
         $this->albumImages = array_diff(scandir ($this->getFullDirectory(), SCANDIR_SORT_DESCENDING), array('.', '..'));
+        sort($this->albumImages);
     }
 
     public function loadFromId($id)
