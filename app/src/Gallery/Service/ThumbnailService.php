@@ -77,6 +77,15 @@ class ThumbnailService
         return true;
     }
 
+    private function getDesiredHeight($size)
+    {
+        $desiredSize = 328;
+        if ($size == "large") {
+            $desiredSize = 1080;
+        }
+        return $desiredSize;
+    }
+
 
     public function getThumbnailPath($albumId, Album $album, $imageName, $size)
     {
@@ -84,7 +93,7 @@ class ThumbnailService
         $thumbnailPath = $this->workDirectory->getThumbnailPath($albumId, $imageName, $size);
 
         if (!is_readable($thumbnailPath)) {
-            $this->generateThumbnail($realImagePath, null, 328, $thumbnailPath);
+            $this->generateThumbnail($realImagePath, null, $this->getDesiredHeight($size), $thumbnailPath);
         }
         return $thumbnailPath;
     }
