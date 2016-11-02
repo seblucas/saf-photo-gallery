@@ -6,3 +6,4 @@ composer.phar
 clover.xml
 phpunit.phar
 web/readium/**
+.idea/**
