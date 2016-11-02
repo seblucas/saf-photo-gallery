@@ -3,32 +3,18 @@
 {% block scripts %}
     <script type="text/javascript">
         $(document).ready(function() {
-            var $grid = $('.grid').imagesLoaded( function() {
-                // init Masonry after all images have loaded
-                $grid.masonry({
-                    itemSelector: '.grid-item', // use a separate class for itemSelector, other than .col-
-                    columnWidth: '.grid-sizer',
-                    percentPosition: true
-                });
-            });
+            $("#gallery").nanoGallery();
         });
     </script>
 {% endblock %}
 
 {% block content %}
     <h1>{{ album.name }}</h1>
-    <div class="row grid no-gutters">
-        <div class="grid-sizer col-xs-6 col-sm-3 col-md-2 col-lg-1"></div>
-        {% for image in album.imagesDetail %}
-            {% if image.orientation == 'l' %}
-        <div class="grid-item col-xs-12 col-sm-6 col-md-4 col-lg-2">
-            {% else %}
-        <div class="grid-item col-xs-6 col-sm-3 col-md-2 col-lg-1">
-            {% endif %}
-
-            <img class="img-responsive" src="{{ url('thumbnail', { albumId: album.id, i: image.name, s: 'small'}) }}" />
-
-        </div>
-        {% endfor %}
+    <div id="gallery">
+    {% for image in album.imagesDetail %}
+        <a href="{{ url('thumbnail', { albumId: album.id, i: image.name, s: 'large'}) }}"
+           data-ngthumb="{{ url('thumbnail', { albumId: album.id, i: image.name, s: 'small'}) }}"
+           data-ngdesc="Super 1" >Totoa</a>
+    {% endfor %}
     </div>
 {% endblock %}
