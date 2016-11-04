@@ -38,6 +38,8 @@ class ThumbnailCtrl
         $size = $request->get('s');
         $this->album->loadFromId($albumId);
         $thumbnailPath = $this->thumbnailService->getThumbnailPath($albumId, $this->album, $imageName, $size);
-        return new BinaryFileResponse($thumbnailPath);
+        $response = new BinaryFileResponse($thumbnailPath);
+        $response->setMaxAge(60 * 60 * 24 * 90); // 90 days
+        return $response;
     }
 }
