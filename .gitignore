@@ -7,3 +7,4 @@ clover.xml
 phpunit.phar
 web/readium/**
 .idea/**
+app/config.php
