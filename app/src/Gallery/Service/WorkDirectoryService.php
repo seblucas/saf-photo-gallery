@@ -22,7 +22,7 @@ class WorkDirectoryService
 
     private $REAL_DIRECTORY_NAME = '/.real';
 
-    public function __construct(string $sourceDirectory, string $workDirectory, ShortUniqueIdService $shortId)
+    public function __construct($sourceDirectory, $workDirectory, ShortUniqueIdService $shortId)
     {
         $this->sourceDirectory = $sourceDirectory;
         $this->workDirectory = $workDirectory;

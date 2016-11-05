@@ -21,7 +21,7 @@ class ThumbnailService
     /** @var WorkDirectoryService  */
     private $workDirectory;
 
-    public function __construct(string $sourceDirectory, WorkDirectoryService $workDirectory)
+    public function __construct($sourceDirectory, WorkDirectoryService $workDirectory)
     {
         $this->sourceDirectory = $sourceDirectory;
         $this->workDirectory = $workDirectory;

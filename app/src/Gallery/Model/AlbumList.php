@@ -21,7 +21,7 @@ class AlbumList
     private $sourceDirectory;
     private $albumFactory;
 
-    public function __construct(string $sourceDirectory, AlbumFactory $albumFactory)
+    public function __construct($sourceDirectory, AlbumFactory $albumFactory)
     {
         $this->sourceDirectory = $sourceDirectory;
         $this->albumFactory = $albumFactory;
