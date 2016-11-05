@@ -65,7 +65,8 @@ class Application extends SilexApplication
 
     private function mountControllers()
     {
-        $this->get('/', 'controller.AlbumList:getAllAlbums');
+        $this->get('/', 'controller.AlbumList:getAllAlbums')
+             ->bind('index');
         $this->get('/album/', 'controller.Album:getOneAlbum')
             ->bind('album.detail');
         $this->get('/album/{albumId}/thumbnail', 'controller.Thumbnail:getOneThumbnail')
