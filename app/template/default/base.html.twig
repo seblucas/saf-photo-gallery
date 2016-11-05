@@ -6,33 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>{% block feedtitle %}SAF Photo Gallery{% endblock %}</title>
-<!--
+{% if global.debug == false %}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nanogallery/5.10.3/css/nanogallery.min.css" integrity="sha256-TWKriatVDzgTkZSn6wmMAqJ2EK1vo9sfoEUn/BZqU2s=" crossorigin="anonymous" />
 
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
--->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nanogallery/5.10.3/jquery.nanogallery.min.js" integrity="sha256-k4HObpY1MZz8+O2g+Wzp2/E3YQDIW+UgC5sm6SiaHJ4=" crossorigin="anonymous"></script>
+{% else %}
     <link rel="stylesheet" href="/gallery/css/bootstrap.min.css">
     <link rel="stylesheet" href="/gallery/css/nanogallery.min.css">
     <script src="/gallery/js/jquery.min.js" ></script>
     <script src="/gallery/js/bootstrap.min.js"></script>
     <script src="/gallery/js/jquery.nanogallery.min.js"></script>
-<!--
-    <script src="/gallery/js/masonry.pkgd.min.js"></script>
-    <script src="/gallery/js/imagesloaded.pkgd.min.js"></script>
-
-    <style media="screen" type="text/css">
-        .row.no-gutters {
-            margin-right: 0;
-            margin-left: 0;
-        }
-        .row.no-gutters > [class^="col-"],
-        .row.no-gutters > [class*=" col-"] {
-            padding-right: 0;
-            padding-left: 0;
-        }
-    </style>
--->
+ {% endif %}
     {% block scripts %}{% endblock %}
 </head>
 <body>

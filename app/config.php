@@ -13,6 +13,7 @@
 // Config that gets passed into main Silex/App instance
 return array(
     'env' => 'development',
+    'debug' => true,
     'template.config' => array(
         'path' => SILEX_APP_ROOT . 'template/default',
         'cache' => false, //SILEX_ROOT . 'cache/twig',

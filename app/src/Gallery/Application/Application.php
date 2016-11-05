@@ -26,8 +26,6 @@ class Application extends SilexApplication
     function __construct(array $baseConfig)
     {
         parent::__construct($baseConfig);
-        $this['debug'] = true;
-        //$this['route_class'] = EmptyPathRoute::class;
         $this->registerProviders();
         $this->registerViewHandlers();
         $this->registerExceptionHandlers();
