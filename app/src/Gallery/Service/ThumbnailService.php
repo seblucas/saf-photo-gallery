@@ -102,7 +102,7 @@ class ThumbnailService
      * @param $source
      * @return int
      */
-    private function detectRotation($source):int
+    private function detectRotation($source)
     {
         $deg = 0;
         // Do we have the ability to rotate?
