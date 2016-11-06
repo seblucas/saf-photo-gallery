@@ -51,7 +51,7 @@ class ThumbnailCtrl
      * @param $albumId
      * @return string
      */
-    private function getThumbnailPath(Request $request, $albumId):string
+    private function getThumbnailPath(Request $request, $albumId)
     {
         $imageName = $request->get('i'); // TODO Protect the call with a regexp to avoid path injection
         $size = $request->get('s');
