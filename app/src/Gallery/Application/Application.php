@@ -67,10 +67,16 @@ class Application extends SilexApplication
     {
         $this->get('/', 'controller.AlbumList:getAllAlbums')
              ->bind('index');
+        $this->get('/admin', 'controller.AlbumList:adminAllAlbums')
+            ->bind('admin');
         $this->get('/album/', 'controller.Album:getOneAlbum')
             ->bind('album.detail');
+        $this->get('/album/generate', 'controller.Album:generateOneAlbum')
+            ->bind('album.generate');
         $this->get('/album/{albumId}/thumbnail', 'controller.Thumbnail:getOneThumbnail')
             ->bind('thumbnail');
+        $this->get('/album/{albumId}/thumbnail/generate', 'controller.Thumbnail:generateOneThumbnail')
+            ->bind('thumbnail.generate');
     }
 
 }

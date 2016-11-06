@@ -34,12 +34,29 @@ class ThumbnailCtrl
 
     public function getOneThumbnail(Request $request, $albumId)
     {
+        $thumbnailPath = $this->getThumbnailPath($request, $albumId);
+        $response = new BinaryFileResponse($thumbnailPath);
+        $response->setMaxAge(60 * 60 * 24 * 90); // 90 days
+        return $response;
+    }
+
+    public function generateOneThumbnail(Request $request, $albumId)
+    {
+        $this->getThumbnailPath($request, $albumId);
+        return "OK";
+    }
+
+    /**
+     * @param Request $request
+     * @param $albumId
+     * @return string
+     */
+    private function getThumbnailPath(Request $request, $albumId):string
+    {
         $imageName = $request->get('i'); // TODO Protect the call with a regexp to avoid path injection
         $size = $request->get('s');
         $this->album->loadFromId($albumId);
         $thumbnailPath = $this->thumbnailService->getThumbnailPath($albumId, $this->album, $imageName, $size);
-        $response = new BinaryFileResponse($thumbnailPath);
-        $response->setMaxAge(60 * 60 * 24 * 90); // 90 days
-        return $response;
+        return $thumbnailPath;
     }
 }

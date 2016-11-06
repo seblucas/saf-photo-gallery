@@ -1,0 +1,76 @@
+{% extends "base.html.twig" %}
+
+{% block scripts %}
+    <script type="text/javascript">
+        var totalRequests = {{ album.images | length }} * 2;
+        var doneRequests = 0;
+        function updateProgressBar(data) {
+            doneRequests++;
+            value = parseInt((doneRequests / totalRequests) * 100, 10);
+            elapsedTime = parseInt((+new Date() - startTime) / 1000, 10);
+            $('.progress-bar').css('width', value+'%').attr('aria-valuenow', value);
+            $('#elapsedTime').text(elapsedTime);
+        }
+
+        //define your list of URLs and what to do with the data
+        var sources = [
+{% for image in album.images %}
+            {% if loop.first == false %},{% endif %}
+            {
+                url : "{{ url('thumbnail.generate', { albumId: album.id, i: image, s: 'large'}) }}",
+                callback : updateProgressBar
+            },
+            {
+                url : "{{ url('thumbnail.generate', { albumId: album.id, i: image, s: 'small'}) }}",
+                callback : updateProgressBar
+            }
+{% endfor %}
+        ];
+
+        //state
+        var maxConcurrentRequests = 8;
+        var concurrentRequests = 0;
+        var currentSourceIndex = -1;
+        var startTime = -1;
+
+        //this function wil ensure that as long as there are sources left, there are 4 requests running
+        function startRequestIfNeeded(){
+
+            while(currentSourceIndex < sources.length-1 && concurrentRequests < maxConcurrentRequests){
+                currentSourceIndex++;
+                concurrentRequests++;
+                var source = sources[currentSourceIndex];
+                doRequest(source);
+            }
+        }
+
+        //this fires the request and executes the callback
+        function doRequest(source){
+
+            $.get(source.url, function(data){
+                source.callback(data);
+                concurrentRequests--;
+                startRequestIfNeeded();
+            });
+        }
+
+        //startRequestIfNeeded();
+        function generateThumb(){
+
+            startTime = +new Date();
+            startRequestIfNeeded();
+        }
+
+    </script>
+{% endblock %}
+
+{% block content %}
+    <h1>{{ album.name }}</h1>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+        </div>
+    </div>
+    <div>
+        Elapsed time : <span id="elapsedTime"></span> s
+    </div>
+{% endblock %}

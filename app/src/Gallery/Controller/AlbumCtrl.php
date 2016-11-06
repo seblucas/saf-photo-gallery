@@ -38,4 +38,12 @@ class AlbumCtrl
         return new Response($this->twig->render('album-detail.html.twig', array('album' => $this->album->toArray())),
             200);
     }
+
+    public function generateOneAlbum(Request $request)
+    {
+        $albumName = $request->get('a');
+        $this->album->loadFromId($albumName);
+        return new Response($this->twig->render('album-generate.html.twig', array('album' => $this->album->toArray())),
+            200);
+    }
 }

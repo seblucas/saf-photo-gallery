@@ -36,4 +36,11 @@ class IndexCtrl
         return new Response($this->twig->render('index.html.twig', array('albumsPerYear' => $albumPerYear)),
             200);
     }
+
+    public function adminAllAlbums()
+    {
+        $albumPerYear = $this->albumList->toArray();
+        return new Response($this->twig->render('admin.html.twig', array('albumsPerYear' => $albumPerYear)),
+            200);
+    }
 }
