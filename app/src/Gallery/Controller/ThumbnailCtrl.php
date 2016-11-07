@@ -17,6 +17,7 @@ use Gallery\Model\Album;
 use Gallery\Service\ThumbnailService;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class ThumbnailCtrl
 {
@@ -24,18 +25,28 @@ class ThumbnailCtrl
     private $album;
     /** @var  ThumbnailService */
     private $thumbnailService;
+    private $xAccelRedirect;
 
 
-    public function __construct(Album $album, ThumbnailService $thumbnailService)
+    public function __construct(Album $album, ThumbnailService $thumbnailService, $xAccelRedirect)
     {
         $this->album = $album;
         $this->thumbnailService = $thumbnailService;
+        $this->xAccelRedirect = $xAccelRedirect;
     }
 
     public function getOneThumbnail(Request $request, $albumId)
     {
         $thumbnailPath = $this->getThumbnailPath($request, $albumId);
-        $response = new BinaryFileResponse($thumbnailPath);
+        if (!$this->xAccelRedirect) {
+            $response = new BinaryFileResponse($thumbnailPath);
+        } else {
+            $imageName = $request->get('i'); // TODO Protect the call with a regexp to avoid path injection
+            $size = $request->get('s');
+            $response = new Response('', 200, array(
+                'X-Accel-Redirect' => $this->xAccelRedirect . $albumId . '/' . $size . '/' . $imageName,
+                'Content-Type' => image/jpeg));
+        }
         $response->setMaxAge(60 * 60 * 24 * 90); // 90 days
         return $response;
     }

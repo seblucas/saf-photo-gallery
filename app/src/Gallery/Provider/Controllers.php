@@ -27,7 +27,7 @@ class Controllers extends Base {
         };
 
         $app['controller.Thumbnail'] = function($app) {
-            return new ThumbnailCtrl($app['model.Album'], $app['service.Thumbnail']);
+            return new ThumbnailCtrl($app['model.Album'], $app['service.Thumbnail'], $app['gallery.config']['x-accel-redirect']);
         };
     }
 }
